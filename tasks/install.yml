@@ -1,0 +1,19 @@
+---
+
+- name: install > Unarchive
+  unarchive:
+    src:     ffmpeg-2.6.3-64bit-static.tar.xz
+    dest:    /opt
+    creates: /opt/ffmpeg-2.6.3-64bit-static
+
+- name: install > Link to ffmpeg binary
+  file:
+    src:   /opt/ffmpeg-2.6.3-64bit-static/ffmpeg
+    dest:  /usr/local/bin/ffmpeg
+    state: link
+
+- name: install > Link to ffprobe binary
+  file:
+    src:   /opt/ffmpeg-2.6.3-64bit-static/ffprobe
+    dest:  /usr/local/bin/ffprobe
+    state: link
