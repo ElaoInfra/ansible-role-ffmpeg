@@ -9,11 +9,11 @@
 - name: install > Link to ffmpeg binary
   file:
     src:   /opt/ffmpeg-2.6.3-64bit-static/ffmpeg
-    dest:  /usr/local/bin/ffmpeg
+    dest:  "{{ elao_ffmpeg_bin }}"
     state: link
 
 - name: install > Link to ffprobe binary
   file:
     src:   /opt/ffmpeg-2.6.3-64bit-static/ffprobe
-    dest:  /usr/local/bin/ffprobe
+    dest:  "{{ elao_ffmpeg_ffprobe_bin }}"
     state: link
