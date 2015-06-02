@@ -1,19 +1,31 @@
 ---
 
+- name: install > Check ffmpeg
+  stat:
+    path: "{{ elao_ffmpeg_bin }}"
+  register: _elao_ffmpeg_bin_stat
+
+- name: install > Check ffmpeg ffprobe
+  stat:
+    path: "{{ elao_ffmpeg_ffprobe_bin }}"
+  register: _elao_ffmpeg_ffprobe_bin_stat
+
 - name: install > Unarchive
   unarchive:
-    src:     ffmpeg-2.6.3-64bit-static.tar.xz
-    dest:    /opt
-    creates: /opt/ffmpeg-2.6.3-64bit-static
+    src:  ffmpeg-2.6.3-64bit-static.tar.xz
+    dest: /tmp
+  when: (not _elao_ffmpeg_bin_stat.stat.exists) or (not _elao_ffmpeg_ffprobe_bin_stat.stat.exists)
 
-- name: install > Link to ffmpeg binary
-  file:
-    src:   /opt/ffmpeg-2.6.3-64bit-static/ffmpeg
-    dest:  "{{ elao_ffmpeg_bin }}"
-    state: link
+- name: install > Copy ffmpeg
+  command: cp /tmp/ffmpeg-2.6.3-64bit-static/ffmpeg {{ elao_ffmpeg_bin }}
+  when: not _elao_ffmpeg_bin_stat.stat.exists
 
-- name: install > Link to ffprobe binary
+- name: install > Copy ffmpeg ffprobe
+  command: cp /tmp/ffmpeg-2.6.3-64bit-static/ffprobe {{ elao_ffmpeg_ffprobe_bin }}
+  when: not _elao_ffmpeg_ffprobe_bin_stat.stat.exists
+
+- name: install > Remove archive
   file:
-    src:   /opt/ffmpeg-2.6.3-64bit-static/ffprobe
-    dest:  "{{ elao_ffmpeg_ffprobe_bin }}"
-    state: link
+    path:  /tmp/ffmpeg-2.6.3-64bit-static
+    state: absent
+  when: (not _elao_ffmpeg_bin_stat.stat.exists) or (not _elao_ffmpeg_ffprobe_bin_stat.stat.exists)
