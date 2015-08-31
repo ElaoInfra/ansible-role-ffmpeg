@@ -12,20 +12,20 @@
 
 - name: install > Unarchive
   unarchive:
-    src:  ffmpeg-2.7.1-64bit-static.tar.xz
+    src:  ffmpeg-release-64bit-static.tar.xz
     dest: /tmp
   when: (not _elao_ffmpeg_bin_stat.stat.exists) or (not _elao_ffmpeg_ffprobe_bin_stat.stat.exists)
 
 - name: install > Copy ffmpeg
-  command: cp /tmp/ffmpeg-2.7.1-64bit-static/ffmpeg {{ elao_ffmpeg_bin }}
+  command: cp /tmp/ffmpeg-release-64bit-static/ffmpeg {{ elao_ffmpeg_bin }}
   when: not _elao_ffmpeg_bin_stat.stat.exists
 
 - name: install > Copy ffmpeg ffprobe
-  command: cp /tmp/ffmpeg-2.7.1-64bit-static/ffprobe {{ elao_ffmpeg_ffprobe_bin }}
+  command: cp /tmp/ffmpeg-release-64bit-static/ffprobe {{ elao_ffmpeg_ffprobe_bin }}
   when: not _elao_ffmpeg_ffprobe_bin_stat.stat.exists
 
 - name: install > Remove archive
   file:
-    path:  /tmp/ffmpeg-2.7.1-64bit-static
+    path:  /tmp/ffmpeg-release-64bit-static
     state: absent
   when: (not _elao_ffmpeg_bin_stat.stat.exists) or (not _elao_ffmpeg_ffprobe_bin_stat.stat.exists)
