@@ -20,14 +20,14 @@ You can add this role as a dependency for other roles by adding the role to the 
 
 ```yaml
 dependencies:
-  - { role: _ffmpeg }
+  - { role: elao.ffmpeg }
 ```
 
 ## Example playbook
 
     - hosts: servers
       roles:
-         - { role: _ffmpeg }
+         - { role: elao.ffmpeg }
 
 # Licence
 
