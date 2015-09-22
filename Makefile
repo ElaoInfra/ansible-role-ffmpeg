@@ -7,7 +7,7 @@ COLOR_INFO    = \033[32m
 COLOR_COMMENT = \033[33m
 
 ## Package
-PACKAGE_NAME        = ffmpeg
+PACKAGE_NAME        = ffmpeg-static
 PACKAGE_DESCRIPTION = A complete, cross-platform solution to record, convert and stream audio and video.
 PACKAGE_VERSION     = 2.8
 PACKAGE_RELEASE     = elao1

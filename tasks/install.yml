@@ -1,7 +1,7 @@
 ---
 
 - name: install > Check package
-  command: "dpkg-query -W -f '${version}\n' ffmpeg"
+  command: "dpkg-query -W -f '${version}\n' ffmpeg-static"
   always_run: yes
   failed_when: false
   changed_when: false
@@ -9,17 +9,17 @@
 
 - name: install > Copy package
   copy:
-    src:  ffmpeg_{{ elao_ffmpeg_package_version }}_amd64.deb
-    dest: /tmp/ffmpeg.deb
+    src:  ffmpeg-static_{{ elao_ffmpeg_package_version }}_amd64.deb
+    dest: /tmp/ffmpeg-static.deb
   when: _elao_ffmpeg_package_check_output.rc != 0 or (_elao_ffmpeg_package_check_output.stdout != elao_ffmpeg_package_version)
 
 - name: install > Install package
   apt:
-    deb: /tmp/ffmpeg.deb
+    deb: /tmp/ffmpeg-static.deb
   when: _elao_ffmpeg_package_check_output.rc != 0 or (_elao_ffmpeg_package_check_output.stdout != elao_ffmpeg_package_version)
 
 - name: install > Remove package
   file:
-    path:  /tmp/ffmpeg.deb
+    path:  /tmp/ffmpeg-static.deb
     state: absent
   when: _elao_ffmpeg_package_check_output.rc != 0 or (_elao_ffmpeg_package_check_output.stdout != elao_ffmpeg_package_version)
